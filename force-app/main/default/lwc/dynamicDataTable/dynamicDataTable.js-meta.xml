@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://sforce.com">
+    <apiVersion>60.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Dynamic Data Table Viewer</masterLabel>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <!-- 1. CERTIFIED FIX: Establish the standard dynamic SObject data template variable token -->
+            <propertyType name="T" extends="SObject" label="Select Record Type" description="Matches the Salesforce object type you are displaying"/>
+
+            <!-- Receives your listbox output array strings directly -->
+            <property name="selectedFields" type="String[]" label="Incoming Selected Fields Array" role="inputOnly" required="true"/>
+            
+            <!-- Receives the matching queried records collection array from your flow -->
+            <property name="tableData" type="{T[]}" label="Source Records Collection" role="inputOnly" required="true"/>
+            <property name="outputSelectedRows" type="{T[]}" label="User Selected Rows Output" role="outputOnly"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

@@ -1,0 +1,58 @@
+<template>
+    <lightning-card title="Dynamic Results Viewer" icon-name="utility:table">
+        
+        <!-- Utility Action Bar: Search Bar & CSV Export Button -->
+        <div class="slds-grid slds-gutters slds-var-m-around_medium slds-alignment_absolute-center">
+            <div class="slds-col slds-size_2-of-3">
+                <lightning-input 
+                    type="search" 
+                    variant="label-hidden" 
+                    placeholder="Search records here..." 
+                    value={searchKey} 
+                    onchange={handleSearchChange}>
+                </lightning-input>
+            </div>
+            <div class="slds-col slds-size_1-of-3 slds-text-align_right">
+                <lightning-button 
+                    label="Export Selected to CSV" 
+                    icon-name="utility:download" 
+                    variant="brand" 
+                    onclick={downloadCSV}
+                    disabled={isExportDisabled}>
+                </lightning-button>
+            </div>
+        </div>
+
+        <!-- Dynamic Data Table Core Element View -->
+        <div class="slds-var-p-horizontal_medium">
+            <template if:true={hasRecords}>
+                <lightning-datatable
+                    key-field="Id"
+                    data={paginatedData}
+                    columns={computedColumns}
+                    onsort={handleSort}
+                    sorted-by={sortedBy}
+                    sorted-direction={sortedDirection}
+                    onrowselection={handleRowSelection}>
+                </lightning-datatable>
+            </template>
+            <template if:false={hasRecords}>
+                <p class="slds-text-align_center slds-text-color_weak slds-var-p-around_medium">No records found matching your criteria.</p>
+            </template>
+        </div>
+
+        <!-- 10-Record Pagination Controls Footer Group -->
+        <div class="slds-grid slds-grid_align-spread slds-var-m-around_medium slds-border_top slds-var-p-top_small">
+            <div class="slds-align-middle">
+                <p class="slds-text-color_weak">Showing page {currentPage} of {totalPages} (Total Records: {filteredData.length})</p>
+            </div>
+            <div>
+                <lightning-button-group>
+                    <lightning-button label="Previous" icon-name="utility:chevronleft" onclick={handlePreviousPage} disabled={isFirstPage}></lightning-button>
+                    <lightning-button label="Next" icon-name="utility:chevronright" icon-position="right" onclick={handleNextPage} disabled={isLastPage}></lightning-button>
+                </lightning-button-group>
+            </div>
+        </div>
+
+    </lightning-card>
+</template>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://sforce.com">
+    <apiVersion>60.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Dynamic Dual Listbox</masterLabel>
+    <targets>
+        <target>lightning__RecordPage</target>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen" configurationEditor="c-listboxcpe">
+            <property name="objectApiName" type="String" label="Object API Name" role="inputOnly"/>
+            <property name="availableFields" type="String" label="Available Fields Pool" role="inputOnly"/>
+            <property name="selectedFields" type="String[]" label="Selected Fields Output" role="outputOnly"/>
+
+            <property name="minSelections" type="String" label="Minimum Selections Allowed" role="inputOnly"/>
+            <property name="maxSelections" type="String" label="Maximum Selections Allowed" role="inputOnly"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

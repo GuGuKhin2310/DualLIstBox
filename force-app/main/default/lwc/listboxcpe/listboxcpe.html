@@ -1,0 +1,59 @@
+<template>
+    <div class="slds-var-p-around_small">
+        
+        <!-- Native Searchable Combobox Element -->
+        <lightning-combobox
+            name="objectSelector"
+            label="Salesforce Object API Name"
+            value={objectApiName}
+            placeholder="Search or Select an Object..."
+            options={comboboxOptions}
+            onchange={handleObjectChange}
+            class="slds-var-m-bottom_medium"
+            searchable="true">
+        </lightning-combobox>
+
+        <!-- Allowed Fields Dual Listbox Panel -->
+        <template if:true={objectApiName}>
+            <template if:true={isFieldsLoading}>
+                <lightning-spinner alternative-text="Loading fields..." size="small"></lightning-spinner>
+            </template>
+            
+            <template if:false={isFieldsLoading}>
+                <lightning-dual-listbox 
+                    name="adminFieldSelector"
+                    label="Choose Fields for User Pool"
+                    source-label="All Object Fields"
+                    selected-label="Fields Allowed in Screen"
+                    options={masterFieldOptions}
+                    value={availableFields}
+                    onchange={handleAvailableFieldsChange}
+                    class="slds-var-m-bottom_medium">
+                </lightning-dual-listbox>
+            </template>
+        </template>
+
+        <!-- Constraint Properties Positioned Cleanly Below the Dual Listbox -->
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-2">
+                <lightning-input 
+                    type="number" 
+                    label="Min Selections" 
+                    value={minSelections} 
+                    onchange={handleMinChange}
+                    min="0">
+                </lightning-input>
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+                <lightning-input 
+                    type="number" 
+                    label="Max Selections" 
+                    value={maxSelections} 
+                    onchange={handleMaxChange}
+                    min="1">
+                </lightning-input>
+            </div>
+        </div>
+
+    </div>
+</template>

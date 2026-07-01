@@ -1,0 +1,20 @@
+<template>
+    <lightning-card title="Field Selection" icon-name="utility:multi_select_checkbox">
+        <div class="slds-var-m-around_medium">
+            <template if:true={hasOptions}>
+                <lightning-dual-listbox 
+                    name="fieldSelector"
+                    label="Select Fields"
+                    source-label="Available Fields"
+                    selected-label="Selected Fields"
+                    options={filteredOptions}
+                    value={selectedFields}
+                    onchange={handleFieldChange}>
+                </lightning-dual-listbox>
+            </template>
+            <template if:false={hasOptions}>
+                <p class="slds-text-color_weak">No fields configured or available for object: {objectApiName}</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>
